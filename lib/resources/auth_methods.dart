@@ -60,4 +60,27 @@ class AuthMethods {
     }
     return res;
   }
+
+  // Login de usuarios
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = 'Ha ocurrido un error';
+
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "Inicio exitoso";
+      } else {
+        res = "Por favor ingrese todos los campos";
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-passoword') {}
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
 }
