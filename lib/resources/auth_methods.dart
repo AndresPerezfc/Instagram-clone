@@ -54,6 +54,8 @@ class AuthMethods {
         res = 'El email es invalido';
       } else if (err.code == 'weak-password') {
         res = 'La contraseña es demasiado debil';
+      } else if (err.code == 'email-already-in-use') {
+        res = 'El correo electrónico ya ha sido utilizado';
       }
     } catch (err) {
       res = err.toString();
