@@ -43,27 +43,39 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-  void singUpUser() async {
+  void signUpUser() async {
+    // set loading to true
     setState(() {
       _isLoading = true;
     });
+
+    // signup user using our authmethodds
     String res = await AuthMethods().signUser(
         email: _emailController.text,
         password: _passwordController.text,
         username: _usernameController.text,
         bio: _bioController.text,
         file: _image!);
-
-    setState(() {
-      _isLoading = false;
-    });
-    if (res != 'success') {
-      showSnackBar(res, context);
-    } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+    // if string returned is sucess, user has been created
+    if (res == "success") {
+      setState(() {
+        _isLoading = false;
+      });
+      // navigate to the home screen
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
-              webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreenLayout())));
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      // show the error
+      showSnackBar(res, context);
     }
   }
 
@@ -153,7 +165,7 @@ class _SignupScreenState extends State<SignupScreen> {
               height: 24,
             ),
             InkWell(
-              onTap: singUpUser,
+              onTap: signUpUser,
               child: Container(
                 child: _isLoading
                     ? const Center(
