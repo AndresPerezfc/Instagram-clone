@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:instagram_flutter/utils/global_variables.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -41,13 +42,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       body: PageView(
-        children: [
-          Text("Inicio"),
-          Text("Buscar"),
-          Text("Agregar"),
-          Text("Notificaciones"),
-          Text("Perfil"),
-        ],
+        children: homeScreenItems,
         //physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
